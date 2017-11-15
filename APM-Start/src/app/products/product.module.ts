@@ -8,16 +8,18 @@ import { ProductGuardService } from './product-guard.service';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { StarComponent } from '../shared/star.component';
+import { SharedModule } from './../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild([
+    RouterModule.forChild([// now that we are adding the router module to this 'feature' module, we use forChild(), 
+    // not forRoot(). This is so we don't re-register the RouterService, which forRoot() does automatically
       { path: 'products', component: ProductListComponent },
       { path: 'products/:id', canActivate: [ProductGuardService], component: ProductDetailComponent }     
-    ]) // now that we are adding the router module to this 'feature' module, we use forChild(), 
-       // not forRoot(). This is so we don't re-register the RouterService, which forRoot() does automatically
+    ]),
+    SharedModule 
 
   ],
   declarations: [
